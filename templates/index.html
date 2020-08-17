@@ -47,12 +47,18 @@
         //            특정 정보값 누락 -> 해당 데이터 기록 alert
         //질문 : 스파르타에서는
         function apply() {
+            let DBwriter = $('inputGroupSelect01').val();
+            let DBkind = $('inputGroupSelect02').val();
             let name = $('#mktName').val();
+            let birth = $('mktBirth').val();
             let email = $('#mktEmail').val();
             let phone = $('#mktPhone').val();
-            let career = $('#mktCareer').val();
             let salary = $('#mktSalary').val();
+            let career = $('#mktCareer').val();
+            let universe = $('#mktUn').val();
             let resume = $('#inputGroupFile01').val();
+            let portfolio = $('#inputGroupFile02').val();
+            
             let rightEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
             if (name == '') {
                 alert('이름을 적어주세요')
@@ -157,7 +163,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">현재 연봉</span>
             </div>
-            <input type="int" class="form-control" placeholder="만원 단위 제외하고 적어주세요" id="mktsellary" aria-label="Username"
+            <input type="int" class="form-control" placeholder="만원 단위 제외하고 적어주세요" id="mktSalary" aria-label="Username"
                    aria-describedby="basic-addon1">
         </div>
         <div class="input-group mb-3">
@@ -199,7 +205,7 @@
             <div class="custom-file">
                 <input type="file" class="custom-file-input" id="inputGroupFile02"
                        aria-describedby="inputGroupFileAddon01">
-                <label class="custom-file-label" for="inputGroupFile01">파일 선택</label>
+                <label class="custom-file-label" for="inputGroupFile02">파일 선택</label>
             </div>
         </div>
         <div class="apply">
