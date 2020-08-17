@@ -2,9 +2,210 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>resume</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <!--js-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://api.manana.kr/exchange/rate.json"></script>
+    <script src="http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99"></script>
+    <style>
+        * {
+            font-family: 'Jua', sans-serif;
+        }
+
+        /*.img {*/
+        /*    background-image: url("https://pbs.twimg.com/media/DVHsDmgUQAYJdYH.jpg");*/
+        /*    background-size: cover;*/
+        /*    background-position: center;*/
+        /*    width: 500px;*/
+        /*    height: 500px;*/
+        /*}*/
+        h1 {
+            display: inline;
+            color: chocolate;
+            margin-bottom: 20px;
+        }
+
+        .mkt {
+            margin-bottom: 20px;
+        }
+
+        .all {
+            margin: auto;
+            width: 500px;
+        }
+
+        .apply {
+            text-align: center;
+        }
+    </style>
+    <script>
+        // apply : if 모든 정보값 있음 -> 데이터 베이스에 등록
+        //            특정 정보값 누락 -> 해당 데이터 기록 alert
+        //질문 : 스파르타에서는
+        function apply() {
+            let name = $('#mktName').val();
+            let email = $('#mktEmail').val();
+            let phone = $('#mktPhone').val();
+            let career = $('#mktCareer').val();
+            let salary = $('#mktSalary').val();
+            let resume = $('#inputGroupFile01').val();
+            let rightEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+            if (name == '') {
+                alert('이름을 적어주세요')
+                $('#mktName').focus()
+            } else if (email == '') {
+                alert("이메일을 적어주세요.")
+                $('#mktEmail').focus()
+            } else if (rightEmail.test(email) == false) {
+                alert("잘못된 이메일 형식입니다.")
+                $('#mktEmail').focus()
+                return
+            } else if (phone == '') {
+                alert("연락처를 적어주세요")
+                $('#mktPhone').focus()
+            } else if (career == '') {
+                alert("연차를 적어주세요")
+                $('#mktCareer').focus()
+            } else if (career == '') {
+                alert("연차를 적어주세요")
+                $('#mktCareer').focus()
+            } else if (salary == '') {
+                alert('연봉 적어주세요,')
+                $('#mktSalary').focus()
+            } else if (resume == '') {
+                alert('이력서 파일을 제출해주세요.')
+                $('#inputGroupFile01').focus()
+            } else {
+                alert('DB등록완료')
+            }
+        }
+    </script>
 </head>
 <body>
+<div class="all">
+    <!--이미지 div-->
+    <!--    <div class="img">-->
+    <!--    </div>-->
+    <!-- 마케터 info div    -->
+    <div class="mkt">
+        <h1>마케터 DB등록</h1>
+    </div>
+    <div class="mki_info">
 
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">DB기록자</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01">
+                <option selected></option>
+                <option value="1">김필재</option>
+                <option value="2">장유나</option>
+                <option value="3">이상민</option>
+                <option value="4">최휘영</option>
+                <option value="5">박원준</option>
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect02">DB구분</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect02">
+                <option selected></option>
+                <option value="1">아웃서치(사람인)</option>
+                <option value="2">아웃서치(리멤버)</option>
+                <option value="3">아웃서치(링크드인)</option>
+                <option value="4">지인 추천</option>
+                <option value="5">인재풀</option>
+                <option value="6">모비 이벤트</option>
+            </select>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">이름</span>
+            </div>
+            <input type="text" class="form-control" id="mktName" placeholder="이름을 적어주세요." aria-label="Username"
+                   aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">출생연도</span>
+            </div>
+            <input type="text" class="form-control" id="mktBirth" placeholder="출생 연도를 적어주세요." aria-label="Username"
+                   aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">이메일</span>
+            </div>
+            <input type="text" class="form-control" id="mktEmail" placeholder="이메일을 적어주세요." aria-label="Username"
+                   aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">연락처</span>
+            </div>
+            <input type="text" class="form-control" id="mktPhone" placeholder="'-'를 제외하고 적어주세요"
+                   aria-label="Username"
+                   aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">현재 연봉</span>
+            </div>
+            <input type="int" class="form-control" placeholder="만원 단위 제외하고 적어주세요" id="mktsellary" aria-label="Username"
+                   aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">학교</span>
+            </div>
+            <input type="text" class="form-control" id="mktUn" placeholder="학교를 적어주세요." aria-label="Username"
+                   aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">연차</span>
+            </div>
+            <input type="int" class="form-control" placeholder="" id="mktCareer" aria-label="Username"
+                   aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">재직 회사수</span>
+            </div>
+            <input type="int" class="form-control" placeholder="" id="mktCom" aria-label="Username"
+                   aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">이력서 파일</span>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                       aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label" for="inputGroupFile01">파일 선택</label>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon02">포트폴리오</span>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile02"
+                       aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label" for="inputGroupFile01">파일 선택</label>
+            </div>
+        </div>
+        <div class="apply">
+            <button onclick="apply()" type="button" class="btn btn-primary">DB등록</button>
+        </div>
+    </div>
+</div>
 </body>
 </html>
