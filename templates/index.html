@@ -44,7 +44,7 @@
     </style>
     <script>
         function onboarding() {
-            var writer = $('#inputGroupSelect01').val()
+            var writer = $('#inputGroupSelect01 option:selected').text()
 
             $.ajax({
                 type: "POST",
@@ -126,11 +126,11 @@
             </div>
             <select class="custom-select" id="inputGroupSelect01">
                 <option selected></option>
-                <option value="1">김필재</option>
-                <option value="2">장유나</option>
-                <option value="3">이상민</option>
-                <option value="4">최휘영</option>
-                <option value="5">박원준</option>
+                <option value="김필재">김필재</option>
+                <option value="장유나">장유나</option>
+                <option value="이상민">이상민</option>
+                <option value="최휘영">최휘영</option>
+                <option value="박원준">박원준</option>
             </select>
         </div>
         <div class="input-group mb-3">

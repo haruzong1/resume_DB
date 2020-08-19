@@ -18,11 +18,13 @@ def home():
 def resume_info():
 
     writer_recieve = request.form['writer_give']
+    print(writer_recieve)
     document = {
         'writer': writer_recieve,
             }
-    db.review.insert_one(document)
-    return jsonify({'result': 'success', 'msg': '리뷰가 성공적으로 작성되었습니다.'})
+    db.resume.insert_one(document)
+
+    return jsonify({'result': 'success', 'msg': 'DB등록이 완료 되었습니다.'})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
