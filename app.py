@@ -10,6 +10,7 @@ db = client.dbsparta  # 'dbsparta'라는 이름의 db를 만들거나 사용합�
 app = Flask(__name__)
 client = MongoClient('localhost', 27017)
 db = client.dbsparta
+
 @app.route('/')
 def home():
     return render_template('index.html')

@@ -43,6 +43,24 @@
         }
     </style>
     <script>
+        function onboarding() {
+            var writer = $('#inputGroupSelect01').val()
+
+            $.ajax({
+                type: "POST",
+                url: "/info",
+                data: {'writer_give': writer},
+                success: function (response) { // 성공하면
+                    if (response["result"] == "success") {
+                        alert(response["msg"]);
+                        window.location.reload();
+                    } else {
+                        alert('서버오류입니다.')
+                    }
+                }
+            })
+        }
+
         // apply : if 모든 정보값 있음 -> 데이터 베이스에 등록
         //            특정 정보값 누락 -> 해당 데이터 기록 alert
         //질문 : 스파르타에서는
@@ -209,7 +227,7 @@
             </div>
         </div>
         <div class="apply">
-            <button onclick="apply()" type="button" class="btn btn-primary">DB등록</button>
+            <button onclick="onboarding()" type="button" class="btn btn-primary">DB등록</button>
         </div>
     </div>
 </div>
