@@ -32,15 +32,34 @@
         .mkt {
             margin-bottom: 20px;
         }
-
+         .ShowDB{
+            position: fixed;
+            left: 900px;
+            top: 30px;
+            width : 100px
+            color : white;
+             z-index: 1;
+        }
         .all {
-            margin: auto;
-            width: 500px;
+            alignment: left;
+            /*margin: auto;*/
+            width: 700px;
         }
 
         .apply {
             text-align: center;
         }
+
+        /*.ShowDB{*/
+        /*    position: fixed;*/
+        /*    left: 500px;*/
+        /*    top: 50px;*/
+        /*    width : 100px*/
+        /*    color : white;*/
+        /*}*/
+
+
+
     </style>
     <script>
         function onboarding() {
@@ -110,6 +129,12 @@
     </script>
 </head>
 <body>
+
+<div class="ShowDB">
+    <button onclick="window.open('showDB.html')"type="button" class="btn btn-primary">Show ME DB</button>
+
+</div>
+
 <div class="all">
     <!--이미지 div-->
     <!--    <div class="img">-->
