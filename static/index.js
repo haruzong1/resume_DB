@@ -15,6 +15,9 @@ function onboarding() {
         }
     })
 }
+function showDB() {
+window.open('showDB.html')
+}
 
 // apply : if 모든 정보값 있음 -> 데이터 베이스에 등록
 //            특정 정보값 누락 -> 해당 데이터 기록 alert

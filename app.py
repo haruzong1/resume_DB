@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify, request
+from flask import send_from_directory
 from pymongo import MongoClient  # pymongo를 임포트 하기(패키지 인스톨 먼저 해야겠죠?)
 from flask.cli import load_dotenv
 from pymongo import MongoClient
