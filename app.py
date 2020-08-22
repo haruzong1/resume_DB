@@ -1,5 +1,4 @@
 from flask import Flask, render_template, jsonify, request
-from flask import send_from_directory
 from pymongo import MongoClient  # pymongo를 임포트 하기(패키지 인스톨 먼저 해야겠죠?)
 from flask.cli import load_dotenv
 from pymongo import MongoClient
@@ -12,20 +11,46 @@ app = Flask(__name__)
 client = MongoClient('localhost', 27017)
 db = client.dbsparta
 
+
 @app.route('/')
 def home():
     return render_template('index.html')
 @app.route('/info', methods=['POST'])
 def resume_info():
+    #기록자 DB등록 방식
 
     writer_recieve = request.form['writer_give']
+    name_recieve = request.form['name_give']
+    birth_recieve = request.form['birth_give']
+    email_recieve = request.form['email_give']
+    phone_recieve = request.form['phone_give']
     print(writer_recieve)
+
     document = {
-        'writer': writer_recieve,
+        'writer': writer_recieve,'name': name_recieve,'birth':birth_recieve,'email':email_recieve,'phone':phone_recieve,'salary':salary_recieve,'univ':univ_recieve,'career':career_recieve,'company':company_recieve
             }
+
+    # author_recieve = request.form['author_give']
+    # print(author_recieve)
+    # document = {
+    #     'author': author_recieve,
+    #         }
     db.resume.insert_one(document)
 
     return jsonify({'result': 'success', 'msg': 'DB등록이 완료 되었습니다.'})
+
+# @app.route('/upload', methods=['POST'])
+# def upload():
+#     file = request.files['file']
+#     document = {
+#         'resume' :
+#     }
+#     return '성공'
+#
+#     # return send_from_directory(directory='file', filename=filename)
+
+
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

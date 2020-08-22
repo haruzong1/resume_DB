@@ -1,10 +1,20 @@
 function onboarding() {
+    // var author1 = $('#author option:selected').text()
     var writer = $('#inputGroupSelect01 option:selected').text()
+    var name = $('#mktName').val()
+    var birth = $('#mktBirth').val()
+    var email = $('#mktEmail').val()
+    var phone = $('#mktPhone').val()
+    var salary= $('#mktSalary').val()
+    var univ= $('#mktUn').val()
+    var career= $('#mktCareer').val()
+    var company =$('#mktCom').val()
 
     $.ajax({
         type: "POST",
         url: "/info",
-        data: {'writer_give': writer},
+        // data: {'author_give': author1},
+        data: {'writer_give': writer, 'name_give':name,'birth_give':birth,'email_give':email,'phone_give':phone,'salary_give':salary,'univ_give':univ,'career_give':career,'company_give':company},
         success: function (response) { // 성공하면
             if (response["result"] == "success") {
                 alert(response["msg"]);
@@ -14,9 +24,23 @@ function onboarding() {
             }
         }
     })
+    // $.ajax({
+    //     type: "POST",
+    //     url: "/file",
+    //     data: {'file_give': file},
+    //     success: function (response) { // 성공하면
+    //         if (response["result"] == "success") {
+    //             alert(response["msg"]);
+    //             window.location.reload();
+    //         } else {
+    //             alert('서버오류입니다.')
+    //         }
+    //     }
+    // })
 }
+
 function showDB() {
-window.open('showDB.html')
+    window.open('showDB.html')
 }
 
 // apply : if 모든 정보값 있음 -> 데이터 베이스에 등록

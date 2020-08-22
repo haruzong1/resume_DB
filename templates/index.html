@@ -9,8 +9,10 @@
           crossorigin="anonymous">
     <!--js-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--    파일업로드 JS-->
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 
-<!--CSS 별도 파일 연결-->
+    <!--CSS 별도 파일 연결-->
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
     <script type=text/javascript src="{{  url_for('static', filename='index.js') }}"></script>
 
@@ -23,9 +25,7 @@
 </div>
 
 <div class="all">
-    <!--이미지 div-->
-    <!--    <div class="img">-->
-    <!--    </div>-->
+
     <!-- 마케터 info div    -->
     <div class="mkt">
         <h1>마케터 DB등록</h1>
@@ -35,8 +35,10 @@
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <label class="input-group-text" for="inputGroupSelect01">DB기록자</label>
+                <!--                <label class="input-group-text" for="author">DB기록자</label>-->
             </div>
             <select class="custom-select" id="inputGroupSelect01">
+                <!--                <select class="custom-select" id="author">>-->
                 <option selected></option>
                 <option value="김필재">김필재</option>
                 <option value="장유나">장유나</option>
@@ -123,19 +125,24 @@
                 <span class="input-group-text" id="inputGroupFileAddon01">이력서 파일</span>
             </div>
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile01"
-                       aria-describedby="inputGroupFileAddon01">
-                <label class="custom-file-label" for="inputGroupFile01">파일 선택</label>
+                <form id="resume_select" method="post" enctype="multipart/form-data">
+                    <input type="file" id="ajaxFile"/>
+                    <!--                    <input type="file" class="custom-file-input" id="resume"-->
+                    <!--                           aria-describedby="inputGroupFileAddon01">-->
+                    <!--                    <label class="custom-file-label" for="resume">파일 선택</label>-->
+                </form>
+
             </div>
+
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupFileAddon02">포트폴리오</span>
             </div>
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile02"
+                <input type="file" name="title" class="custom-file-input" id="portfolio"
                        aria-describedby="inputGroupFileAddon01">
-                <label class="custom-file-label" for="inputGroupFile02">파일 선택</label>
+                <label class="custom-file-label" for="portfolio">파일 선택</label>
             </div>
         </div>
         <div class="apply">
