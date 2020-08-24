@@ -18,9 +18,9 @@
 
 </head>
 <body>
-
+<!--showDB open-->
 <div class="ShowDB">
-    <button onclick="window.open('www.naver.com')" type="button" class="btn btn-primary">Show ME DB</button>
+    <button onclick="window.open('list')" type="button" class="btn btn-primary">Show ME DB</button>
 
 </div>
 
@@ -49,9 +49,9 @@
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect02">DB구분</label>
+                <label class="input-group-text" for="writer">DB구분</label>
             </div>
-            <select class="custom-select" id="inputGroupSelect02">
+            <select class="custom-select" id="writer">
                 <option selected></option>
                 <option value="1">아웃서치(사람인)</option>
                 <option value="2">아웃서치(리멤버)</option>
@@ -120,21 +120,30 @@
                    aria-describedby="basic-addon1">
         </div>
 
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroupFileAddon01">이력서 파일</span>
-            </div>
-            <div class="custom-file">
-                <form id="resume_select" method="post" enctype="multipart/form-data">
+
+        <form>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupFileAddon01">이력서 파일</span>
+                </div>
+                <div class="custom-file">
                     <input type="file" id="ajaxFile"/>
-                    <!--                    <input type="file" class="custom-file-input" id="resume"-->
-                    <!--                           aria-describedby="inputGroupFileAddon01">-->
-                    <!--                    <label class="custom-file-label" for="resume">파일 선택</label>-->
-                </form>
-
+                    <input type="file" class="custom-file-input" id="resume"
+                           aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="resume">파일 선택</label>
+                </div>
             </div>
+        </form>
 
-        </div>
+        <script>
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val()
+                // .split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>
+
+
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupFileAddon02">포트폴리오</span>

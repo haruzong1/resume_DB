@@ -1,6 +1,6 @@
 function onboarding() {
     // var author1 = $('#author option:selected').text()
-    var writer = $('#inputGroupSelect01 option:selected').text()
+    var writer = $('#writer option:selected').text()
     var name = $('#mktName').val()
     var birth = $('#mktBirth').val()
     var email = $('#mktEmail').val()

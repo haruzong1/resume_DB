@@ -17,7 +17,7 @@ h1 {
     position: fixed;
     left: 900px;
     top: 30px;
-    width: 100px
+    width: 100px;
     color: white;
     z-index: 1;
 }
