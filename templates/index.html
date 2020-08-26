@@ -120,28 +120,22 @@
                    aria-describedby="basic-addon1">
         </div>
 
-
-        <form>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon01">이력서 파일</span>
-                </div>
-                <div class="custom-file">
-                    <input type="file" id="ajaxFile"/>
-                    <input type="file" class="custom-file-input" id="resume"
-                           aria-describedby="inputGroupFileAddon01">
-                    <label class="custom-file-label" for="resume">파일 선택</label>
-                </div>
-            </div>
+        <form action="http://localhost:5000/file-upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" />
+            <input type="submit" />
         </form>
+{#            <div class="input-group mb-3">#}
+{#                <div class="input-group-prepend">#}
+{#                    <span class="input-group-text" id="inputGroupFileAddon01">이력서 파일</span>#}
+{#                </div>#}
+{#                <div class="custom-file">#}
+{#                    <input type="file" id="ajaxFile"/>#}
+{#                    <input type="file" class="custom-file-input" id="resume"#}
+{#                           aria-describedby="inputGroupFileAddon01">#}
+{#                    <label class="custom-file-label" for="resume">파일 선택</label>#}
+{#                </div>#}
+{#            </div>#}
 
-        <script>
-            $(".custom-file-input").on("change", function () {
-                var fileName = $(this).val()
-                // .split("\\").pop();
-                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-            });
-        </script>
 
 
         <div class="input-group mb-3">

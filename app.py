@@ -6,29 +6,14 @@ import uuid
 from pytz import timezone
 import datetime
 import os
-
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 client = MongoClient('localhost', 27017)  # mongoDB는 27017 포트로 돌아갑니다.
 db = client.dbsparta  # 'dbsparta'라는 이름의 db를 만들거나 사용합니다.
 
-#뭔지 모르지만 필요한것
-load_dotenv()
-
-MOBI_HOST = os.environ['mobi_host']
-FLASK_ENV = os.environ['FLASK_ENV']
-BASE_FOLDER = os.path.dirname(os.path.abspath(__file__))
-UPLOAD_FOLDER = os.environ['UPLOAD_FOLDER']
-UPLOAD_PASSWORD = os.environ['UPLOAD_PASSWORD']
-ALLOWED_EXTENSIONS = {'PDF'}
-
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['UPLOAD_PASSWORD'] = UPLOAD_PASSWORD
-
-
-
-
-
+UPLOAD_DIR = "BASE_FOLDER"
+app.config['UPLOAD_DIR'] = UPLOAD_DIR
 
 
 
@@ -36,10 +21,11 @@ app.config['UPLOAD_PASSWORD'] = UPLOAD_PASSWORD
 app = Flask(__name__)
 client = MongoClient('localhost', 27017)
 db = client.dbsparta
+# app.config['UPLOAD_DIR'] = UPLOAD_DIR
 
 
 @app.route('/')
-def home():1
+def home():
     return render_template('index.html')
 
 
@@ -75,36 +61,32 @@ def resume_info():
     return jsonify({'result': 'success', 'msg': 'DB등록이 완료 되었습니다.'})
 
 
-@app.route('/readinfo', methods=['POST'])
-def read_info():
-    # 1. mongoDB에서 _id 값을 제외한 모든 데이터 조회해오기(Read)
-    data = list(db.resume.find({}, {'_id': 0}))
-    # 2. articles라는 키 값으로 articles 정보 보내주기
-    result = {
-        'result': 'success',
-        'data': data,
-    }
+# @app.route('/readinfo', methods=['POST'])
+# def read_info():
+#     # 1. mongoDB에서 _id 값을 제외한 모든 데이터 조회해오기(Read)
+#     data = list(db.resume.find({}, {'_id': 0}))
+#     # 2. articles라는 키 값으로 articles 정보 보내주기
+#     result = {
+#         'result': 'success',
+#         'data': data,
+#     }
 
 
-@app.route('/info/<int:phone>/<string:email>', methods=['POST'])
-def upload_resume(phone, email):
-    upload_time = datetime.datetime.now(timezone('Asia/Seoul'))
-    resume_name = {'phone': phone, 'email': email}
 
-    if file := request.files.get('file'):
-        resume = db.resume.find_one(resume_name)
-
-        if file_uuid := resume.get('uuid'):
-            filename = f'{file_uuid}.pdf'
-        else:
-            new_file_uuid = uuid.uuid4()
-            filename = f'{new_file_uuid}.pdf'
-
-        filepath = os.path.join(BASE_FOLDER, app.config['UPLOAD_FOLDER'], filename)
-        file.save(filepath)
-
-        db.resume.update(resume_name, {'$set': {'filepath': filepath, 'upload_time': upload_time}})
-
+@app.route('/file-upload', methods=['GET', 'POST'])
+def upload_files():
+    # if request.method == 'POST':
+    #     f = request.files['file']
+    #     # fname = secure_filename(f.filename)
+    #     # path = os.path.join(app.config['UPLOAD_DIR'], fname)
+    #     f.save('BASE_FOLDER'+secure_filename(f.filename))
+    #     return '성공'
+    if request.method == 'POST':
+        f = request.files['file']
+        fname = secure_filename(f.filename)
+        path = os.path.join(app.config['UPLOAD_DIR'], fname)
+        f.save(path)
+        return 'File upload complete (%s)' % path
 
 # author_recieve = request.form['author_give']
 # print(author_recieve)
@@ -124,6 +106,7 @@ def upload_resume(phone, email):
 #     # return send_from_directory(directory='file', filename=filename)
 # @app.route('/upload', methods=['POST'])
 # def upload():
+
 
 
 if __name__ == '__main__':

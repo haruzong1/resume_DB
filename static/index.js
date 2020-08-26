@@ -9,7 +9,7 @@ function onboarding() {
     var univ = $('#mktUn').val()
     var career = $('#mktCareer').val()
     var company = $('#mktCom').val()
-
+    //에이잭스로
     $.ajax({
         type: "POST",
         url: "/info",
@@ -25,29 +25,15 @@ function onboarding() {
             'career_give': career,
             'company_give': company
         },
-        success: function (response) { // 성공하면
-            if (response["result"] == "success") {
-                var form_data = new FormData($('#resume')[0]);
-                form_data.append('file', $('input[type=file]')[0].files[0]);
-                $.ajax({
-                            type: "POST",
-                            url: `/info/${phone}/${email}`,
-                            data: form_data,
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            success: function (response) {
-                                if (!(response['result'] === 'success')) {
-                                    alert('파일 업로드 실패하였습니다. 관리자에게 문의해주세요.');
-                                } alert('파일 업로드 성공하였습니다.');
-                                window.location.reload();
-                            }
-                        })
-                    } else {
-                        alert('파일 업로드 실패하였습니다. 관리자에게 문의해주세요.');
+      success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert("좋아요!")
+                        window.location.reload();
+                    }else{
+                        alert("좋아요 실패")
                     }
                 }
-            })
+            });
         }
 
 
