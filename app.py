@@ -4,11 +4,34 @@ from flask.cli import load_dotenv
 from pymongo import MongoClient
 import uuid
 from pytz import timezone
+import datetime
+import os
 
 
 app = Flask(__name__)
 client = MongoClient('localhost', 27017)  # mongoDB는 27017 포트로 돌아갑니다.
 db = client.dbsparta  # 'dbsparta'라는 이름의 db를 만들거나 사용합니다.
+#뭔지 모르지만 필요한것
+
+load_dotenv()
+
+MOBI_HOST = os.environ['mobi_host']
+FLASK_ENV = os.environ['FLASK_ENV']
+BASE_FOLDER = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.environ['UPLOAD_FOLDER']
+UPLOAD_PASSWORD = os.environ['UPLOAD_PASSWORD']
+ALLOWED_EXTENSIONS = {'PDF'}
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_PASSWORD'] = UPLOAD_PASSWORD
+
+
+
+
+
+
+
+
 
 app = Flask(__name__)
 client = MongoClient('localhost', 27017)
@@ -46,38 +69,41 @@ def resume_info():
         'company': company_recieve
     }
     print(document)
-    
-    db.resume.update_one(document,{'$set':{'uuid':file_uuid,**document}},upsert=True)
+
+    db.resume.update_one(document, {'$set': {'uuid': file_uuid, **document}}, upsert=True)
 
     return jsonify({'result': 'success', 'msg': 'DB등록이 완료 되었습니다.'})
+
 
 @app.route('/readinfo', methods=['POST'])
 def read_info():
     # 1. mongoDB에서 _id 값을 제외한 모든 데이터 조회해오기(Read)
-    data = list(db.resume.find({},{'_id':0}))
+    data = list(db.resume.find({}, {'_id': 0}))
     # 2. articles라는 키 값으로 articles 정보 보내주기
-    result ={
+    result = {
         'result': 'success',
-        'data':data,
+        'data': data,
     }
+
+
 @app.route('/info/<int:phone>/<string:email>', methods=['POST'])
-def upload_homework(author, title):
+def upload_resume(phone, email):
     upload_time = datetime.datetime.now(timezone('Asia/Seoul'))
-    homework_name = {'title': title, 'author': author}
+    resume_name = {'phone': phone, 'email': email}
 
     if file := request.files.get('file'):
-        homework = db.homework.find_one(homework_name)
+        resume = db.resume.find_one(resume_name)
 
-        if file_uuid := homework.get('uuid'):
-            filename = f'{file_uuid}.html'
+        if file_uuid := resume.get('uuid'):
+            filename = f'{file_uuid}.pdf'
         else:
             new_file_uuid = uuid.uuid4()
-            filename = f'{new_file_uuid}.html'
+            filename = f'{new_file_uuid}.pdf'
 
         filepath = os.path.join(BASE_FOLDER, app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
 
-        db.homework.update(homework_name, {'$set': {'filepath': filepath, 'upload_time': upload_time}})
+        db.homework.update(resume_name, {'$set': {'filepath': filepath, 'upload_time': upload_time}})
 
 
 # author_recieve = request.form['author_give']

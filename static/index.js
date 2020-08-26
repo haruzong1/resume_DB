@@ -5,39 +5,51 @@ function onboarding() {
     var birth = $('#mktBirth').val()
     var email = $('#mktEmail').val()
     var phone = $('#mktPhone').val()
-    var salary= $('#mktSalary').val()
-    var univ= $('#mktUn').val()
-    var career= $('#mktCareer').val()
-    var company =$('#mktCom').val()
+    var salary = $('#mktSalary').val()
+    var univ = $('#mktUn').val()
+    var career = $('#mktCareer').val()
+    var company = $('#mktCom').val()
 
     $.ajax({
         type: "POST",
         url: "/info",
-        // data: {'author_give': author1},
-        data: {'writer_give': writer, 'name_give':name,'birth_give':birth,'email_give':email,'phone_give':phone,'salary_give':salary,'univ_give':univ,'career_give':career,'company_give':company},
+        data: {'phone_give': phone, 'email_give': email},
+        data: {
+            'writer_give': writer,
+            'name_give': name,
+            'birth_give': birth,
+            'email_give': email,
+            'phone_give': phone,
+            'salary_give': salary,
+            'univ_give': univ,
+            'career_give': career,
+            'company_give': company
+        },
         success: function (response) { // 성공하면
             if (response["result"] == "success") {
-                alert(response["msg"]);
-                window.location.reload();
-            } else {
-                alert('서버오류입니다.')
-            }
+                var form_data = new FormData($('#resume')[0]);
+                form_data.append('file', $('input[type=file]')[0].files[0]);
+                $.ajax({
+                            type: "POST",
+                            url: `/info/${phone}/${email}`,
+                            data: form_data,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (response) {
+                                if (!(response['result'] === 'success')) {
+                                    alert('파일 업로드 실패하였습니다. 관리자에게 문의해주세요.');
+                                } alert('파일 업로드 성공하였습니다.');
+                                window.location.reload();
+                            }
+                        })
+                    } else {
+                        alert('파일 업로드 실패하였습니다. 관리자에게 문의해주세요.');
+                    }
+                }
+            })
         }
-    })
-    // $.ajax({
-    //     type: "POST",
-    //     url: "/file",
-    //     data: {'file_give': file},
-    //     success: function (response) { // 성공하면
-    //         if (response["result"] == "success") {
-    //             alert(response["msg"]);
-    //             window.location.reload();
-    //         } else {
-    //             alert('서버오류입니다.')
-    //         }
-    //     }
-    // })
-}
+
 
 function showDB() {
     window.open('showDB.html')
