@@ -11,8 +11,8 @@ import os
 app = Flask(__name__)
 client = MongoClient('localhost', 27017)  # mongoDB는 27017 포트로 돌아갑니다.
 db = client.dbsparta  # 'dbsparta'라는 이름의 db를 만들거나 사용합니다.
-#뭔지 모르지만 필요한것
 
+#뭔지 모르지만 필요한것
 load_dotenv()
 
 MOBI_HOST = os.environ['mobi_host']
@@ -39,7 +39,7 @@ db = client.dbsparta
 
 
 @app.route('/')
-def home():
+def home():1
     return render_template('index.html')
 
 
@@ -103,7 +103,7 @@ def upload_resume(phone, email):
         filepath = os.path.join(BASE_FOLDER, app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
 
-        db.homework.update(resume_name, {'$set': {'filepath': filepath, 'upload_time': upload_time}})
+        db.resume.update(resume_name, {'$set': {'filepath': filepath, 'upload_time': upload_time}})
 
 
 # author_recieve = request.form['author_give']
